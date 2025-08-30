@@ -25,10 +25,24 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.GEMINI_AP
 }
 
 // ✅ Initialize Firebase
-const serviceAccountPath = "./serviceAccountKey.json";
-if (!fs.existsSync(serviceAccountPath)) {
-  console.error("Error: serviceAccountKey.json is missing!");
-  process.exit(1);
+// Get the JSON string from your Railway environment variable
+const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+
+if (!serviceAccountString) {
+  throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set.');
+}
+
+try {
+  const serviceAccount = JSON.parse(serviceAccountString);
+
+  // Initialize the app with the parsed credentials
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    // other options...
+  });
+  console.log('Firebase Admin SDK initialized successfully!');
+} catch (error) {
+  console.error('Failed to parse Firebase service account key:', error);
 }
 
 const serviceAccount = require(serviceAccountPath);
