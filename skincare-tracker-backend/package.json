@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "echo 'No build step required for Node.js'"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +20,6 @@
     "firebase-admin": "^13.2.0",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.10.0"
-  },
-  "scripts": {
-    "start": "node server.js",
-    "build": "echo 'No build step required for Node.js'"
   }
+  
 }
