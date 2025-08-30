@@ -24,8 +24,8 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.GEMINI_AP
   process.exit(1);
 }
 
+
 // ✅ Initialize Firebase
-// Get the JSON string from your Railway environment variable
 const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 
 if (!serviceAccountString) {
@@ -43,13 +43,11 @@ try {
   console.log('Firebase Admin SDK initialized successfully!');
 } catch (error) {
   console.error('Failed to parse Firebase service account key:', error);
+  // It's good practice to exit the process if this fails, as the app is unusable
+  process.exit(1); 
 }
 
-const serviceAccount = require(serviceAccountPath);
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-const db = admin.firestore();
+const db = admin.firestore(); 
 
 // ✅ Express app setup
 const app = express();
